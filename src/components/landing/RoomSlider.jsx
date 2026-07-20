@@ -1,22 +1,18 @@
 import CarouselContainer from "@/components/landing/shared/CarouselContainer";
 import RoomCard from "../landing/RoomCard";
+import { fetchRooms } from "@/utils/fetchers";
 
 export default async function RoomSlider() {
-  let items = [];
-
+  let response = {};
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/rooms?page=1&limit=6`
-    );
-    const data = await res.json();
-    items = data?.documents;
+    response = await fetchRooms({ page: 1, limit: 6, category: "all" });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching room data:", error);
   }
 
   return (
     <CarouselContainer
-      items={items}
+      items={response?.documents ?? []}
       controlsVariant="top"
       heading={"Our Featured Rooms"}
       itemSize="basis-full sm:basis-1/2 lg:basis-1/3" // 3 columns on desktop

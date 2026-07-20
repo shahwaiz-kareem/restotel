@@ -1,20 +1,18 @@
 import CarouselContainer from "@/components/landing/shared/CarouselContainer";
 import GalleryCard from "./GalleryCard";
+import { fetchGallery } from "@/utils/fetchers";
 
 export default async function GallerySlider() {
-  let items = [];
+  let response = {};
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/gallery?page=1&limit=6`
-    );
-    const data = await res.json();
-    items = data?.documents;
+    response = await fetchGallery({ page: 1, limit: 6, category: "all" });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching gallery data:", error);
   }
+
   return (
     <CarouselContainer
-      items={items}
+      items={response?.documents ?? []}
       controlsVariant="top"
       heading={"Glimpse of Our Gallery"}
       itemSize="basis-full sm:basis-1/2 lg:basis-1/3" // 3 columns on desktop

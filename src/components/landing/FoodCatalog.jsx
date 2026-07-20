@@ -1,21 +1,18 @@
 import CarouselContainer from "@/components/landing/shared/CarouselContainer";
 import FoodCard from "./FoodCard";
+import { fetchFoods } from "@/utils/fetchers";
 
 export default async function FoodCatalog() {
-  let items = [];
+  let response = {};
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/menu?page=1&limit=6`
-    );
-    const data = await res.json();
-    items = data?.documents;
+    response = await fetchFoods({ page: 1, limit: 6, category: "all" });
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching food data:", error);
   }
 
   return (
     <CarouselContainer
-      items={items}
+      items={response?.documents ?? []}
       controlsVariant="top"
       heading={"Popular Dishes"}
       itemSize="basis-full sm:basis-1/2 lg:basis-1/3"

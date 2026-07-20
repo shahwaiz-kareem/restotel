@@ -228,11 +228,11 @@ export function RoomForm({ onSuccess, itemData, updateItem }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {roomCategories.map(({ type, label }) => {
+                      {roomCategories.map(({ type, label }) => (
                         <SelectItem key={type} value={type}>
                           {label}
-                        </SelectItem>;
-                      })}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />

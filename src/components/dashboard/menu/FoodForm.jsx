@@ -221,11 +221,11 @@ export function FoodForm({ onSuccess, itemData, updateItem }) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {foodCategories.map(({ type, label }) => {
+                      {foodCategories.map(({ type, label }) => (
                         <SelectItem key={type} value={type}>
                           {label}
-                        </SelectItem>;
-                      })}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
